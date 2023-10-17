@@ -2,7 +2,8 @@ import React from "react";
 import { LessonData } from "../LessonData";
 
 export type LessonContextType = {
-  advance: () => void;
+  forward: () => void;
+  back: () => void;
   answer: (answer: string) => void;
 } & LessonData;
 

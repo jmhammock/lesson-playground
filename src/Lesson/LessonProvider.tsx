@@ -3,17 +3,31 @@ import { LessonData } from "../LessonData";
 import { LessonContext, LessonContextType } from "./LessonContext";
 
 export type LessonAction =
-  | { type: "advance" }
+  | { type: "forward" }
+  | { type: "back" }
   | { type: "answer"; answer: string };
 
 function lessonReducer(state: LessonData, action: LessonAction): LessonData {
   switch (action.type) {
-    case "advance": {
+    case "forward": {
       const [nextQuestion, ...remainingQuestions] = state.remainingQuestions;
       return {
         ...state,
+        previousQuestions: [state.currentQuestion, ...state.previousQuestions],
         currentQuestion: nextQuestion,
         remainingQuestions,
+      };
+    }
+    case "back": {
+      const [previousQuestion, ...previousQuestions] = state.previousQuestions;
+      return {
+        ...state,
+        previousQuestions,
+        currentQuestion: previousQuestion,
+        remainingQuestions: [
+          state.currentQuestion,
+          ...state.remainingQuestions,
+        ],
       };
     }
     case "answer": {
@@ -38,7 +52,8 @@ export function LessonProvider({ children, lesson }: LessonProviderProps) {
 
   const value: LessonContextType = {
     ...state,
-    advance: () => dispatch({ type: "advance" }),
+    forward: () => dispatch({ type: "forward" }),
+    back: () => dispatch({ type: "back" }),
     answer: (answer: string) => dispatch({ type: "answer", answer }),
   };
 

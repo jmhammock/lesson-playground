@@ -4,7 +4,8 @@ import { Lesson } from "./Lesson/Lesson";
 import { LessonProvider } from "./Lesson/LessonProvider";
 
 const lesson: LessonData = {
-  title: "Lesson 1: Hello, world!",
+  title: "Lesson 1: The Quest for the Holy Grail!",
+  previousQuestions: [],
   currentQuestion: {
     prompt: "What is your name?",
     answer: "",

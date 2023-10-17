@@ -7,16 +7,20 @@ export function Lesson() {
   const lesson = useLessonContext();
   const currentValue = useRef<HTMLInputElement>(null);
 
-  function onSubmit() {
+  function handleSubmit() {
     lesson.answer(currentValue.current?.value ?? "");
   }
 
-  function onAdvance() {
-    lesson.advance();
+  function handleForward() {
+    lesson.forward();
+  }
+
+  function handleBack() {
+    lesson.back();
   }
 
   const canSubmit = lesson.currentQuestion.answer !== "";
-  const canAdvance =
+  const canForward =
     lesson.currentQuestion.answer === "" &&
     lesson.remainingQuestions.length > 0;
 
@@ -27,15 +31,22 @@ export function Lesson() {
       <h1>{lesson.title}</h1>
       <Question ref={currentValue} />
       <div style={{ marginTop: "1rem" }}>
-        <Button action={onSubmit} disabled={canSubmit}>
+        <Button action={handleSubmit} disabled={canSubmit}>
           Submit
         </Button>
       </div>
-      <div style={{ marginTop: "1rem" }}>
-        <Button action={onAdvance} disabled={canAdvance}>
-          Next
-        </Button>
-      </div>
+      {lesson.remainingQuestions.length > 0 && (
+        <div style={{ marginTop: "1rem" }}>
+          <Button action={handleForward} disabled={canForward}>
+            Next
+          </Button>
+        </div>
+      )}
+      {lesson.previousQuestions.length > 0 && (
+        <div style={{ marginTop: "1rem" }}>
+          <Button action={handleBack}>Back</Button>
+        </div>
+      )}
     </div>
   );
 }

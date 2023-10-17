@@ -12,7 +12,7 @@ export const Question = forwardRef<HTMLInputElement>((_, ref) => {
   return (
     <div>
       <label>
-        {currentQuestion.prompt}
+        <p>{currentQuestion.prompt}</p>
         <input
           ref={ref}
           type="text"

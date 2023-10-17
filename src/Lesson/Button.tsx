@@ -3,10 +3,10 @@ import { useLessonContext } from "./LessonContext";
 type Props = {
   children: React.ReactNode;
   action: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 };
 
-export function Button({ children, action, disabled }: Props) {
+export function Button({ children, action, disabled = false }: Props) {
   useLessonContext();
 
   return (
