@@ -29,8 +29,6 @@ export function Lesson() {
 
   currentValue.current?.focus();
 
-  console.log(currentValue.current?.value);
-
   return (
     <div>
       <h1>{lesson.title}</h1>
