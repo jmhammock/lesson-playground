@@ -1,11 +1,25 @@
-export type Question = {
-  prompt: string;
+
+type Question = {
+  type: string,
+  prompt: string,
   answer: string;
 };
 
+export type TextQuestionData = Question;
+
+export type MultipleChoiceQuestionData = Question & {
+  prompt: string;
+  correct: string;
+  distractors: string[];
+};
+
+export type LessonQuestionData = 
+  | TextQuestionData
+  | MultipleChoiceQuestionData;
+
 export type LessonData = {
   title: string;
-  previousQuestions: Question[];
-  currentQuestion: Question;
-  remainingQuestions: Question[];
+  previousQuestions: LessonQuestionData[];
+  currentQuestion: LessonQuestionData;
+  remainingQuestions: LessonQuestionData[];
 };

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useLessonContext } from "./LessonContext";
-import { Question } from "./Question";
+import { Question } from "../Question/Question";
 import { Button } from "./Button";
 
 export function Lesson() {
@@ -8,7 +8,10 @@ export function Lesson() {
   const currentValue = useRef<HTMLInputElement>(null);
 
   function handleSubmit() {
-    lesson.answer(currentValue.current?.value ?? "");
+    if (currentValue.current !== null) {
+      lesson.answer(currentValue.current.value);
+      currentValue.current.value = "";
+    }
   }
 
   function handleForward() {
@@ -25,6 +28,8 @@ export function Lesson() {
     lesson.remainingQuestions.length > 0;
 
   currentValue.current?.focus();
+
+  console.log(currentValue.current?.value);
 
   return (
     <div>
